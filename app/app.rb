@@ -1,7 +1,6 @@
 ENV['RACK_ENV'] ||= 'development'
-
-require "sinatra/base"
 require_relative "./models/data_mapper_setup"
+require "sinatra/base"
 require 'sinatra/flash'
 
 class BookMarkManager < Sinatra::Base
@@ -24,15 +23,13 @@ end
 
 post '/users' do
   @user = User.create(user_name: params[:user_name], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email])
-
   if @user.save
     session[:user_id] = @user.id
     redirect '/links'
   else
-    flash.now[:notice] = "Password and confirmation password do not match"
+    flash.now[:error] = @user.errors.full_messages
     erb :'users/new'
   end
-
 end
 
 get '/users' do

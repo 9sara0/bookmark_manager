@@ -4,14 +4,20 @@
   </head>
 
   <body>
-    <% if flash[:notice] %>
-    <div id="notice"><%= flash[:notice] %></div>
 
-    <% end %>
 
     <% if current_user %>
       <h1>Welcome, <%= @current_user.user_name  %>!</h1>
+    <% end %>
 
+
+    <% if flash[:error] %>
+      Please refer to the following errors below:
+      <ul id='errors'>
+        <% flash[:error].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
     <% end %>
 
     <%= yield %>
