@@ -6,7 +6,7 @@
       <label for="user_name">User Name: </label> <input type="text" name="user_name" value="<%= @user.user_name %>" placeholder="Enter username">
       <label for="password">Password: </label> <input type="password" name="password" placeholder="Enter password">
       <label for="password_confirmation">Confirm password: </label> <input type="password" name="password_confirmation" placeholder="Confirm password">
-      <label for="email">Email: </label> <input type="text" name="email" value="<%= @user.email %>" placeholder="Enter email">
+      <label for="email">Email: </label> <input type="text" name="email" value="<%= @user.email %>" placeholder="Enter email" required>
       <button type="submit" name="Register" >Register</button>
     </form>
 

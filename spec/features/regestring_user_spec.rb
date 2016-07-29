@@ -5,15 +5,19 @@ feature "Users sign-up" do
     expect(User.first.email).to eq "David@mail.com"
   end
 
+  scenario "no user created with mismatching password and password confirmation" do
 
-  scenario "no user created with a mismatching password" do
-    visit '/users/new'
-    fill_in :user_name, with:              "David"
-    fill_in :password, with:               "123456789"
-    fill_in :password_confirmation, with:  "123"
-    fill_in :email, with:                  "David@mail.com"
-    expect { click_button "Register" }.not_to change(User, :count)
+    expect { sign_up(password_confirmation: 'worng') }.not_to change(User, :count)
     expect(current_path).to eq '/users'
     expect(page).to have_content("Password and confirmation password do not match")
   end
+
+  scenario "User can't sign up without an email address" do
+    expect { sign_up(email: nil) }.not_to change(User, :count)
+  end
+
+  scenario "User can't sign up with an invalid email address" do
+    expect { sign_up(email: "invalid@email") }.not_to change(User, :count)
+  end
+
 end

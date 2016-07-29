@@ -8,11 +8,12 @@ def add_tag
   fill_in(:tag, with: "search engine")
 end
 
-def sign_up
+
+def sign_up(password: password = 12, email: email = "David@mail.com", password_confirmation: password_confirmation = 12)
   visit '/users/new'
   fill_in :user_name, with:             "David"
-  fill_in :password, with:              "123456789"
-  fill_in :email, with:                 "David@mail.com"
-  fill_in :password_confirmation, with: "123456789"
+  fill_in :password, with:              password
+  fill_in :email, with:                 email
+  fill_in :password_confirmation, with: password_confirmation
   click_button "Register"
 end

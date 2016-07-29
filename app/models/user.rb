@@ -4,13 +4,16 @@ require 'dm-validations'
 class User
   include DataMapper::Resource
 
-  property :id, Serial
-  property :user_name, String
-  property :email, String
-  property :password_digist, String, length: 60
+  property :id,               Serial
+  property :user_name,        String
+  property :email,            String, required: true
+  property :password_digist,  String, length: 60
+
   attr_accessor :password_confirmation
-  attr_reader :password
-  validates_confirmation_of :password
+  attr_reader   :password
+
+  validates_confirmation_of       :password
+  validates_format_of :email, as: :email_address
 
 
   def password=(password)
