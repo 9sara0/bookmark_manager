@@ -5,7 +5,7 @@ class User
   include DataMapper::Resource
 
   property :id,               Serial
-  property :user_name,        String
+  property :name,        String
   property :email,            String, required: true, unique: true
   property :password_digist,  String, length: 60
 
@@ -19,5 +19,12 @@ class User
   def password=(password)
     @password = password
     self.password_digist = BCrypt::Password.create(password)
+  end
+
+
+  def self.authenticate(email, password)
+    user = first(email: email)
+    return user if (user && BCrypt::Password.new(user.password_digist) == password)
+    nil
   end
 end

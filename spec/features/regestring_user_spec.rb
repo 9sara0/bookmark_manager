@@ -1,12 +1,11 @@
 feature "Users sign-up" do
   scenario "user register an account/users count increases by 1" do
     expect { sign_up }.to change(User, :count).by(1)
-    expect(page).to have_content "Welcome, David!"
-    expect(User.first.email).to eq "David@mail.com"
+    expect(page).to have_content "Welcome, Sarah!"
+    expect(User.first.email).to eq "sarah@mail.com"
   end
 
   scenario "no user created with mismatching password and password confirmation" do
-
     expect { sign_up(password_confirmation: 'worng') }.not_to change(User, :count)
     expect(current_path).to eq '/users'
     expect(page).to have_content("Password does not match the confirmation")
